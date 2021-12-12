@@ -21,7 +21,7 @@ def write_recipes():
     try:
         file = open("recipes.txt", "w")
         for recipe in recipes.keys():
-            file.write(" ".join([recipe, *recipes[recipe]]))
+            file.write(" ".join([recipe, *recipes[recipe]]) + "\n")
         file.close()
         print("Saved")
     except Exception as e:
@@ -38,7 +38,7 @@ def show_recipes(ingredients: list = None):
                 matches[recipe_name] = recipes[recipe_name]
         if len(matches) > 0:
             print(f"Recipes with {ingredient} : ")
-            print("\t ", matches)
+            print(*[f"\t{name} : {matches[name]}" for name in matches.keys()], sep="\n")
         else:
             print(f"There are no matches for this ingredient: {ingredient}")
 
@@ -52,7 +52,7 @@ def show_recipes(ingredients: list = None):
                 matching_all.pop(recipe_name)
     if len(matching_all) > 0:
         print(f"Recipes with all : {[str(i) for i in ingredients]}")
-        print(matching_all, sep="\n\t")
+        print(*[f"\t{name} : {matching_all[name]}" for name in matching_all.keys()], sep="\n")
     else:
         print(f"There are no recipes containing all the ingredients given {[str(i) for i in ingredients]}")
 
